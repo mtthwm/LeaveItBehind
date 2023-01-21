@@ -1,3 +1,4 @@
+using DSA;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -41,5 +42,12 @@ public class GridProvider : MonoBehaviour
         int col = (int) ((position.x - corner.position.x) / cellSize);
         int row = (int) ((corner.position.y - position.y) / cellSize);
         return new Vector2Int(col, row);
+    }
+
+    public Vector3 GridToWorld (GridLocation cell)
+    {
+        float x = cell.Col * cellSize + corner.position.x;
+        float y = -cell.Row * cellSize + corner.position.y;
+        return new Vector3(x, y, 0);
     }
 }
