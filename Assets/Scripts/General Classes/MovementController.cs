@@ -3,7 +3,9 @@ using UnityEngine;
 /// <summary>
 /// Class containing Methods to move other rigidbodies
 /// 
-/// Assumes all speeds are adjusted for deltaTime -- USE IN FIXED UPDATE
+/// Assumes all speeds are adjusted for fixedDeltaTime -- USE IN FIXED UPDATE
+/// **IMPORTANT** MovePosition = KINEMATIC RIGIDBODY!!!
+/// If Rigidbody not kinemetic change to rb.velocity = Vector2.___ * speed;
 /// </summary>
 public class MovementController : MonoBehaviour
 {
