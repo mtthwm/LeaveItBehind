@@ -17,10 +17,13 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
 
     private int dir = 0;
+    Vector2 move_Dir;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        move_Dir = Vector2.zero;
     }
 
     private void Start()
@@ -59,7 +62,7 @@ public class Player : MonoBehaviour
             current_Tile = cell;
 
             // attempt rope spawn
-            RopeSpawn.spawner.SpawnRope(cell);
+            RopeSpawn.spawner.SpawnRope(cell, move_Dir);
         }
     }
 
@@ -75,7 +78,7 @@ public class Player : MonoBehaviour
         // move button pressed
         if (context.performed)
         {
-            Vector2 move_Dir = context.ReadValue<Vector2>();
+            move_Dir = context.ReadValue<Vector2>();
             if ((uint)move_Dir.x > 0)
             {
                 dir = (move_Dir.x > 0) ? 1 : 2;

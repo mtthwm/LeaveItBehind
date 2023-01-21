@@ -23,7 +23,7 @@ public class RopeSpawn : MonoBehaviour
         map = new HashSet<Vector3Int>();
     }
 
-    public void SpawnRope(Vector3Int possible_Coords)
+    public void SpawnRope(Vector3Int possible_Coords, Vector2 rot)
     {
         if (map.Contains(possible_Coords))
         {
@@ -33,7 +33,7 @@ public class RopeSpawn : MonoBehaviour
 
         map.Add(possible_Coords);
 
-        Instantiate(RopePrefab, tile_Map.CellToWorld(possible_Coords), Quaternion.identity);
+        Instantiate(RopePrefab, tile_Map.CellToWorld(possible_Coords), Quaternion.Euler(rot.x, rot.y, 1));
     }
 
     public void DestroyRope(GameObject rope, Vector3 coords)
