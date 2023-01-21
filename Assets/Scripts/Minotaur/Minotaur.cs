@@ -48,4 +48,15 @@ public class Minotaur : MonoBehaviour
         target = patrol_Points[current_Patrol_Point];
         // Go_To_Target(target); // responsible for cycling through patrol points
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject other = collision.gameObject;
+
+        // Destroy ONLY rope objects
+        if (other.CompareTag("Rope"))
+        {
+            RopeSpawn.spawner.DestroyRope(other, other.transform.position);
+        }
+    }
 }

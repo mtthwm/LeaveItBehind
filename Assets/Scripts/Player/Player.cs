@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Tilemap tileMap;
 
+    private Vector3Int current_Tile;
+
     private Rigidbody2D rb;
 
     private int dir = 0;
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
         player = this;
 
         //tileMap.WorldToCell
+        current_Tile = tileMap.WorldToCell(transform.position);
     }
 
     private void FixedUpdate()
@@ -48,6 +51,15 @@ public class Player : MonoBehaviour
             default:
                 MovementController.Move_Down(rb, move_Speed);
                 break;
+        }
+
+        Vector3Int cell = tileMap.WorldToCell(transform.position);
+        if (current_Tile != cell)
+        {
+            current_Tile = cell;
+
+            // attempt rope spawn
+            RopeSpawn.spawner.SpawnRope(cell);
         }
     }
 
