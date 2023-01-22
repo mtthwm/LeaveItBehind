@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2441749804594877881, guid: 7b4b4f0fd14872f40a5d169efecc98cd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2441749804594877887, guid: 7b4b4f0fd14872f40a5d169efecc98cd, type: 3}
       propertyPath: tileMap
