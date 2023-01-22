@@ -49,7 +49,9 @@ public class RopeSpawner : MonoBehaviour
             map.Remove(trail[trail.Count - 1].Item1);
             trail.RemoveAt(trail.Count - 1);
 
-            Player.player.yarn_length--;
+            Player.player.yarn_length++;
+
+            UI.Instance.Change_Yarn_Value(Player.player.yarn_length);
 
             return;
         }
@@ -59,6 +61,10 @@ public class RopeSpawner : MonoBehaviour
             GameObject rope = Instantiate(RopePrefab, possible_Coords, rot);
             map.Add(possible_Coords, trail.Count);
             trail.Add(new Tuple<Vector3Int, GameObject>(possible_Coords, rope));
+
+            Player.player.yarn_length--;
+
+            UI.Instance.Change_Yarn_Value(Player.player.yarn_length);
         }
     }
 
