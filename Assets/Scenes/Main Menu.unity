@@ -3955,7 +3955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb0f3bdb1a9a2a4dabb98bd1f356978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevel: New Scene
+  firstLevel: Level0
   credits: Credits
   mainMenu: 
 --- !u!1 &750878893
