@@ -7,8 +7,7 @@ public class Player : MonoBehaviour
     static public Player player; // Singleton
 
     [SerializeField]
-    [Range(10f, 50f)]
-    private float speed = 10f;
+    private float speed = 2f;
 
     public int yarn_length = 100;
 
