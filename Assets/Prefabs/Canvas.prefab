@@ -263,7 +263,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4963125063917466421}
   m_FillRect: {fileID: 4963125063917466422}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
@@ -391,6 +391,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slide: {fileID: 4963125064350385562}
   run_Image: {fileID: 4963125063323162814}
+  otherThing: {fileID: 4963125064945076697}
+  max_yarn: 120
 --- !u!1 &4963125064945076699
 GameObject:
   m_ObjectHideFlags: 0

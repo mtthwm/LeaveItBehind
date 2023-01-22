@@ -9,17 +9,14 @@ public class UI : MonoBehaviour
 
     public Slider slide;
     public Image run_Image;
+    public Image otherThing;
 
-    int max_yarn;
+    public int max_yarn = 120;
 
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
-
-        //while (Player.player == null) { }
-
-        max_yarn = Player.player.yarn_length;
     }
 
     public void Change_Yarn_Value(int current_total)
@@ -29,8 +26,8 @@ public class UI : MonoBehaviour
 
     public void Run_Phase()
     {
-        slide.enabled = false;
-
-        run_Image.enabled = true;
+        slide.gameObject.SetActive(false);
+        otherThing.gameObject.SetActive(false);
+        run_Image.gameObject.SetActive(true);
     }
 }
