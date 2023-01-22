@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Pathfinder), typeof(Rigidbody2D))]
@@ -16,6 +17,7 @@ public class PathFollower : MonoBehaviour
     private int m_dir = 0;
     private int m_pathIndex;
     private List<Vector3> m_path;
+    private Vector3 m_prevTarget;
 
     void Start()
     {
@@ -58,13 +60,14 @@ public class PathFollower : MonoBehaviour
                     return;
                 }
 
-                ChangeDirection((m_path[m_pathIndex] - transform.position).normalized);
+                ChangeDirection();
             }
         }
     }
 
-    private void ChangeDirection(Vector3 dir)
+    private void ChangeDirection()
     {
+        Vector3 dir = (m_path[m_pathIndex] - transform.position).normalized;
         if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y) && dir.y > 0)
         {
             m_dir = 0;
@@ -94,10 +97,22 @@ public class PathFollower : MonoBehaviour
     public void UpdateTarget()
     {
         m_pathfinder.Target = target.position;
+        m_prevTarget = target.position;
         m_pathfinder.UpdatePath();
         m_path = m_pathfinder.Path;
+        if (m_path.Count < 2)
+        {
+            foreach (Vector3 v in m_path)
+            {
+                Debug.Log(v);
+            }
+            Stop();
+            return;
+        }
         m_pathIndex = 0;
         m_hasPath = true;
+
+        ChangeDirection();
     }
 
     public void Stop()
@@ -112,10 +127,9 @@ public class PathFollower : MonoBehaviour
         while (m_following)
         {
             yield return new WaitForSeconds(updateTargetDelay);
-            if (target.position != m_path[0])
+            if (Vector2.Distance(target.position, m_prevTarget) > 0.1f)
             {
                 UpdateTarget();
-                Debug.Log("CHANGE!");
             }
         }
     }

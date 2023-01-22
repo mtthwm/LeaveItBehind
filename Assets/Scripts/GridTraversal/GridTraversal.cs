@@ -145,6 +145,10 @@ namespace DSA
                 {
                     current = node.GridLocation;
                     result.Push(current);
+                    if (current.Col == startCol && current.Row == startRow)
+                    {
+                        break;
+                    }
                     node = node.Last;
                 }
             }

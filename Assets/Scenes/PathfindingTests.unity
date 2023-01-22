@@ -1581,4 +1581,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1574042607}
   speed: 2
-  updateTargetDelay: 5
+  updateTargetDelay: 0.5
