@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 
 [RequireComponent(typeof(Pathfinder), typeof(Rigidbody2D))]
@@ -36,22 +37,28 @@ public class PathFollower : MonoBehaviour
             if (Vector2.Distance(transform.position, m_path[m_pathIndex]) > 0.1f)
             {
                 Vector3 dir = (m_path[m_pathIndex] - transform.position).normalized;
+                Quaternion rotation = new Quaternion();
                 if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y) && dir.y > 0)
                 {
                     MovementController.Move_Up(m_rb2d, speed);
+                    rotation.eulerAngles = new Vector3(0, 0, 180);
                 }
                 if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y) && dir.x > 0)
                 {
                     MovementController.Move_Right(m_rb2d, speed);
+                    rotation.eulerAngles = new Vector3(0, 0, 90);
                 }
                 if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y) && dir.y < 0)
                 {
                     MovementController.Move_Down(m_rb2d, speed);
+                    rotation.eulerAngles = Vector3.zero;
                 }
                 if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y) && dir.x < 0)
                 {
                     MovementController.Move_Left(m_rb2d, speed);
+                    rotation.eulerAngles = new Vector3(0, 0, -90);
                 }
+                transform.rotation = rotation;
             }
             else
             {
