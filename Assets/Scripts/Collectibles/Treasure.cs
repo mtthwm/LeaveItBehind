@@ -13,6 +13,8 @@ public class Treasure : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.GM.Player_Has_Treasure();
+
+            Destroy(gameObject);
         }
     }
 }
