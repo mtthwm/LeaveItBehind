@@ -87,6 +87,8 @@ public class Player : MonoBehaviour
     public void Yarn_Destroyed()
     {
         yarn_length++;
+
+        UI.Instance.Change_Yarn_Value(yarn_length);
     }
 
     public void Move(InputAction.CallbackContext context) 
