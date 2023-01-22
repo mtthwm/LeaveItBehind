@@ -17,8 +17,8 @@ public class GridProvider : MonoBehaviour
         {
             for (int col = 0; col < gridSize; col++)
             {
-                float x = col * cellSize + corner.position.x;
-                float y = -row * cellSize + corner.position.y;
+                float x = col * cellSize + corner.position.x + (cellSize / 2);
+                float y = -row * cellSize + corner.position.y - (cellSize / 2);
 
                 foreach (Tilemap t in tilemaps)
                 {
@@ -46,8 +46,8 @@ public class GridProvider : MonoBehaviour
 
     public Vector3 GridToWorld (GridLocation cell)
     {
-        float x = cell.Col * cellSize + corner.position.x;
-        float y = -cell.Row * cellSize + corner.position.y;
+        float x = cell.Col * cellSize + corner.position.x + (cellSize / 2);
+        float y = -cell.Row * cellSize + corner.position.y - (cellSize / 2);
         return new Vector3(x, y, 0);
     }
 }

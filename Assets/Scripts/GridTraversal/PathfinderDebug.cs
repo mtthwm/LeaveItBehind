@@ -10,29 +10,23 @@ public class PathfinderDebug : MonoBehaviour
     private LineRenderer m_lineRenderer;
     private Pathfinder m_pathfinder;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         m_lineRenderer = GetComponent<LineRenderer>();
         m_pathfinder = GetComponent<Pathfinder>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        m_pathfinder.Target = target.position;
+        m_pathfinder.UpdatePath();
         UpdateLine();
     }
 
     private void UpdateLine()
     {
-        m_pathfinder.Target = target.position;
-
-        List<Vector3> newPositions = new List<Vector3>();
-        foreach (DSA.GridLocation node in m_pathfinder.Nodes)
-        {
-            newPositions.Add(m_pathfinder.gridProvider.GridToWorld(node));
-        }
-        m_lineRenderer.positionCount = newPositions.Count;
-        m_lineRenderer.SetPositions(newPositions.ToArray());
+        List<Vector3> positions = m_pathfinder.Path;
+        m_lineRenderer.positionCount = positions.Count;
+        m_lineRenderer.SetPositions(positions.ToArray());
     }
 }

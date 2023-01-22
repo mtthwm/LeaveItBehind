@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5757569671170942652}
   - component: {fileID: 7261384760146165331}
   - component: {fileID: 9012951825243564022}
+  - component: {fileID: 508199206880181151}
+  - component: {fileID: 1089184059446212454}
   m_Layer: 0
   m_Name: Minotaur
   m_TagString: Untagged
@@ -67,7 +69,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &5757569671170942652
 BoxCollider2D:
@@ -93,7 +95,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!82 &7261384760146165331
 AudioSource:
@@ -211,3 +213,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &508199206880181151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545970672488992700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdf905e00fdf7d48b62b48340320e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridProvider: {fileID: 0}
+--- !u!114 &1089184059446212454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545970672488992700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288b3345385dda9448b2650511d527b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 2
+  updateTargetDelay: 0.5
