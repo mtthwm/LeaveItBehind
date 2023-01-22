@@ -1,30 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
     public GridProvider gridProvider;
-    public Vector2 Target { 
-        get { return m_target; } 
-        set {
-            m_target = value;
-            GetPath();
-        } 
-    }
-    public IEnumerable<DSA.GridLocation> Nodes { get; private set; }
+    public Vector2 Target { get; set; }
+    public List<Vector3> Path { get; private set; } = new List<Vector3>();
 
-    private void GetPath ()
+    public void UpdatePath ()
     {
         Vector2Int o = gridProvider.WorldToGrid(transform.position);
         Vector2Int t = gridProvider.WorldToGrid(Target);
-        Nodes = DSA.GridTraversal.AStar(gridProvider.Grid, o.x, o.y, t.x, t.y);
+        IEnumerable<DSA.GridLocation> m_nodes = DSA.GridTraversal.AStar(gridProvider.Grid, o.x, o.y, t.x, t.y, false);
+
+        Path.Clear();
+        foreach (DSA.GridLocation l in m_nodes)
+        {
+            Path.Add(gridProvider.GridToWorld(l));
+        }
     }
 
     private void Awake()
     {
         gridProvider.GenerateGrid();
     }
-
-    private Vector2 m_target;
 }

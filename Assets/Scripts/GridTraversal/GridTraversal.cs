@@ -46,7 +46,7 @@ namespace DSA
         /// <param name="endCol">The column value of the cell to end at</param>
         /// <param name="endRow">The row value of the cell to end at</param>
         /// <returns></returns>
-        public static IEnumerable<GridLocation> AStar(Grid<WeightedNode> grid, int startCol, int startRow, int endCol, int endRow)
+        public static IEnumerable<GridLocation> AStar(Grid<WeightedNode> grid, int startCol, int startRow, int endCol, int endRow, bool diagonals = false)
         {
             if (startCol == endCol && startRow == endRow)
             {
@@ -95,6 +95,12 @@ namespace DSA
                 {
                     for (int y = -1; y < 2; y++)
                     {
+                        // Remove diagonals
+                        if (!diagonals && (x == -y || x == y))
+                        {
+                            continue;
+                        }
+
                         int px = current.Col + x;
                         int py = current.Row + y;
 
