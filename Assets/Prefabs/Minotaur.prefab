@@ -207,8 +207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrol_Points: []
-  near: {fileID: 0}
-  far: {fileID: 0}
+  near: {fileID: 8300000, guid: c365430075f53294c883040548abb0be, type: 3}
+  far: {fileID: 8300000, guid: aa04eca10a4e2204d8f868f0a157e6f0, type: 3}
 --- !u!50 &1595184347793726102
 Rigidbody2D:
   serializedVersion: 4
@@ -265,8 +265,8 @@ AudioSource:
   m_GameObject: {fileID: 8545970672488992700}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 3e6bb4bbdb1a2724592da80e0cd3f584, type: 2}
+  m_audioClip: {fileID: 8300000, guid: aa04eca10a4e2204d8f868f0a157e6f0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
