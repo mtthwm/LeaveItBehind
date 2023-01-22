@@ -1,24 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager GM;
+    public bool player_Has_Treasure;
+
     [SerializeField]
     private float detection_radius = 10f;
+
+    [SerializeField]
+    private Tilemap tileMap;
 
     private bool chase_triggered;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GM = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Distance_Min_Player() < detection_radius)
+        if (player_Has_Treasure)
+            return;
+
+        float distance = Distance_Min_Player();
+        if (distance < detection_radius)
         {
             // trigger minotaur chase
             chase_triggered = true;
@@ -32,12 +42,29 @@ public class GameManager : MonoBehaviour
 
             Minotaur.instance.Player_Far();
         }
-
-
     }
 
     private float Distance_Min_Player()
     {
-        return Vector3.Distance(Player.player.transform.position, Minotaur.instance.transform.position);
+        return 100;//Vector2.Distance(Player.player.transform.position, Minotaur.instance.transform.position);
+    }
+
+    public void Player_Has_Treasure()
+    {
+        player_Has_Treasure = true;
+
+        Player.player.yarn_length += 1; // ensures that yarn length is never 0
+
+        Minotaur.instance.Player_Near();
+    }
+
+    public void Player_Caught()
+    {
+        SceneManager.LoadScene("Game Over");
+    }
+
+    public void Player_Won()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
