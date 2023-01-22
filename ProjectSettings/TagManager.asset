@@ -39,6 +39,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 189722253
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Yarn
+    uniqueID: 934414019
+    locked: 0
+  - name: Characters
+    uniqueID: 2487056489
+    locked: 0
+  - name: Walls
+    uniqueID: 2297622995
     locked: 0
