@@ -7,8 +7,7 @@ public class Player : MonoBehaviour
     static public Player player; // Singleton
 
     [SerializeField]
-    [Range(10f, 50f)]
-    private float speed = 10f;
+    private float speed = 2f;
 
     public int yarn_length = 100;
 
@@ -26,6 +25,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        move_Dir = Vector2.zero;
         move_Dir = Vector2.zero;
     }
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         if (yarn_length == 0 )
             return;
 
-        float move_Speed = speed * Time.fixedDeltaTime;
+        float move_Speed = speed;
         Quaternion rotation = new Quaternion();
         switch (dir) 
         {
@@ -86,6 +86,8 @@ public class Player : MonoBehaviour
     public void Yarn_Destroyed()
     {
         yarn_length++;
+
+        UI.Instance.Change_Yarn_Value(yarn_length);
     }
 
     public void Move(InputAction.CallbackContext context) 

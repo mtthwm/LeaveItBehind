@@ -7,7 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(Pathfinder), typeof(Rigidbody2D))]
 public class PathFollower : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+    public delegate void ArrivedAction (GameObject originator, Transform transform);
+    public static event ArrivedAction OnArrived;
+
+    public Transform Target;
     [SerializeField] private float speed = 2f;
     [SerializeField] private float updateTargetDelay = 1f;
 
@@ -64,6 +67,7 @@ public class PathFollower : MonoBehaviour
                 {
                     m_hasPath = false;
                     m_rb2d.velocity = Vector2.zero;
+                    OnArrived?.Invoke(gameObject, Target);
                     return;
                 }
             }
@@ -80,8 +84,8 @@ public class PathFollower : MonoBehaviour
 
     public void UpdateTarget()
     {
-        m_pathfinder.Target = target.position;
-        m_prevTarget = target.position;
+        m_pathfinder.Target = Target.position;
+        m_prevTarget = Target.position;
         m_pathfinder.UpdatePath();
         m_path = m_pathfinder.Path;
         if (m_path.Count < 2)
@@ -105,7 +109,7 @@ public class PathFollower : MonoBehaviour
         while (m_following)
         {
             yield return new WaitForSeconds(updateTargetDelay);
-            if (Vector2.Distance(target.position, m_prevTarget) > 0.1f)
+            if (Vector2.Distance(Target.position, m_prevTarget) > 0.1f)
             {
                 UpdateTarget();
             }
