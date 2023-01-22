@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        GetComponent<AudioSource>().volume = 0.5f;
+
         move_Dir = Vector2.zero;
     }
 
