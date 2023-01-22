@@ -9,8 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
 
-    [SerializeField]
-    private int yarn_length = 100;
+    public int yarn_length = 100;
 
     [SerializeField]
     private Tilemap tileMap;
@@ -42,28 +41,36 @@ public class Player : MonoBehaviour
         if (dir == 0)
             return;
 
-        if (yarn_length == 0)
+        if (yarn_length == 0 )
             return;
 
         float move_Speed = speed * Time.fixedDeltaTime;
+        int rot;
         switch (dir) 
         {
             case 1:
+                rot = 90;
+                rb.SetRotation(-90);
                 MovementController.Move_Right(rb, move_Speed);
                 break;
             case 2:
+                rot = -90;
                 MovementController.Move_Left(rb, move_Speed);
                 break;
             case 3:
+                rot = 0;
                 MovementController.Move_Up(rb, move_Speed);
                 break;
             default:
+                rot = 180;
                 MovementController.Move_Down(rb, move_Speed);
                 break;
         }
 
+        transform.Rotate(new Vector3(0, rot, 0));
+
         // if there is more yarn to place, place it
-        if (yarn_length > 0 )
+        if (!GameManager.GM.player_Has_Treasure)
         {
             Vector3Int cell = tileMap.WorldToCell(transform.position);
             if (current_Tile != cell)
@@ -71,7 +78,7 @@ public class Player : MonoBehaviour
                 current_Tile = cell;
 
                 // attempt rope spawn
-                RopeSpawner.spawner.SpawnRope(cell, move_Dir);
+                RopeSpawner.spawner.SpawnRope(cell, transform.rotation);
 
                 yarn_length--;
             }
@@ -105,10 +112,5 @@ public class Player : MonoBehaviour
                 dir = (move_Dir.y > 0) ? 3 : 4;
             }
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        
     }
 }
