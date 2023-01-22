@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     static public Player player; // Singleton
 
     [SerializeField]
-    private float speed = 5f;
+    [Range(10f, 50f)]
+    private float speed = 10f;
 
     public int yarn_length = 100;
 
@@ -39,49 +40,46 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         if (dir == 0)
+        {
+            rb.velocity = Vector2.zero;
             return;
+        }
 
         if (yarn_length == 0 )
             return;
 
         float move_Speed = speed * Time.fixedDeltaTime;
-        int rot;
+        Quaternion rotation = new Quaternion();
         switch (dir) 
         {
             case 1:
-                rot = 90;
-                rb.SetRotation(-90);
+                rotation.eulerAngles = new Vector3(0, 0, 90);
+
                 MovementController.Move_Right(rb, move_Speed);
                 break;
             case 2:
-                rot = -90;
+                rotation.eulerAngles = new Vector3(0, 0, -90);
+
                 MovementController.Move_Left(rb, move_Speed);
                 break;
             case 3:
-                rot = 0;
+                rotation.eulerAngles = new Vector3(0, 0, 180);
+
                 MovementController.Move_Up(rb, move_Speed);
                 break;
             default:
-                rot = 180;
+                rotation.eulerAngles = Vector3.zero;
                 MovementController.Move_Down(rb, move_Speed);
                 break;
         }
 
-        transform.Rotate(new Vector3(0, rot, 0));
+        transform.rotation = rotation;
 
         // if there is more yarn to place, place it
         if (!GameManager.GM.player_Has_Treasure)
         {
             Vector3Int cell = tileMap.WorldToCell(transform.position);
-            if (current_Tile != cell)
-            {
-                current_Tile = cell;
-
-                // attempt rope spawn
-                RopeSpawner.spawner.SpawnRope(cell, transform.rotation);
-
-                yarn_length--;
-            }
+            RopeSpawner.spawner.SpawnRope(cell, transform.rotation);
         }
     }
 

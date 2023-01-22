@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,9 +9,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private float detection_radius = 10f;
-
-    [SerializeField]
-    private AudioClip[] heart_beat;
 
     [SerializeField]
     private Tilemap tileMap;
@@ -46,13 +42,11 @@ public class GameManager : MonoBehaviour
 
             Minotaur.instance.Player_Far();
         }
-
-
     }
 
     private float Distance_Min_Player()
     {
-        return Vector2.Distance(Player.player.transform.position, Minotaur.instance.transform.position);
+        return 100;//Vector2.Distance(Player.player.transform.position, Minotaur.instance.transform.position);
     }
 
     public void Player_Has_Treasure()
@@ -64,8 +58,13 @@ public class GameManager : MonoBehaviour
         Minotaur.instance.Player_Near();
     }
 
+    public void Player_Caught()
+    {
+        SceneManager.LoadScene("Game Over");
+    }
+
     public void Player_Won()
     {
-
+        SceneManager.LoadScene("Main Menu");
     }
 }

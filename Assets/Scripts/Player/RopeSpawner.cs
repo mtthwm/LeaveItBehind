@@ -14,11 +14,14 @@ public class RopeSpawner : MonoBehaviour
 
     private Stack<Tuple<Vector3Int, GameObject>> trail;
 
+    private Vector3Int previous_tile;
+    private GameObject current_Rope;
+
     [SerializeField]
     private GameObject RopePrefab;
 
     [SerializeField]
-    static private Tilemap tile_Map;
+    private Tilemap tile_Map;
 
     // Start is called before the first frame update
     void Start()
@@ -26,28 +29,29 @@ public class RopeSpawner : MonoBehaviour
         spawner = this;
 
         map = new HashSet<Vector3Int>();
+        trail = new Stack<Tuple<Vector3Int, GameObject>>();
     }
 
     public void SpawnRope(Vector3Int possible_Coords, Quaternion rot)
     {
-        if (map.Contains(possible_Coords))
+        if (possible_Coords == previous_tile)
         {
-            // rope already in square
-            // check if rope is the last square
-            if (possible_Coords == trail.Peek().Item1)
-            {
-                // Take back yarn
-                map.Remove(possible_Coords);
+            // player backtracked
+            // Destroy and replace current_Rope obj
+            Destroy(current_Rope);
 
-                Destroy(trail.Pop().Item2);
 
-                Player.player.Yarn_Destroyed();
-            }
+            // push previous tile onto stack
             return;
         }
+        if (map.Contains(possible_Coords))
+        {
 
-        map.Add(possible_Coords);
-        trail.Push(new Tuple<Vector3Int, GameObject>(possible_Coords, Instantiate(RopePrefab, tile_Map.CellToWorld(possible_Coords), rot)));
+        }
+        else
+        {
+
+        }
     }
 
     public void DestroyRope(GameObject rope, Vector3 coords)
