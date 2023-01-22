@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  yarn_length: 1000
+  yarn_length: 120
   tileMap: {fileID: 0}
 --- !u!114 &2441749804594877884
 MonoBehaviour:
@@ -256,7 +256,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5f011f40f26d04d408f3f11d296e5930, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.364
   m_Pitch: 1
   Loop: 1
   Mute: 0

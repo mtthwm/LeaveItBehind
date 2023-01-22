@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         Player.player.yarn_length += 1; // ensures that yarn length is never 0
 
         Minotaur.instance.Player_Near();
+        UI.Instance.Run_Phase();
     }
 
     public void Player_Caught()

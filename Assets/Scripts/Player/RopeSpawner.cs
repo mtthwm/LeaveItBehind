@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -58,7 +59,7 @@ public class RopeSpawner : MonoBehaviour
 
         if (!map.ContainsKey(possible_Coords)) {
             // coord is a new square
-            GameObject rope = Instantiate(RopePrefab, possible_Coords, rot);
+            GameObject rope = Instantiate(RopePrefab, possible_Coords + (tile_Map.cellSize * 0.5f), rot);
             map.Add(possible_Coords, trail.Count);
             trail.Add(new Tuple<Vector3Int, GameObject>(possible_Coords, rope));
 
