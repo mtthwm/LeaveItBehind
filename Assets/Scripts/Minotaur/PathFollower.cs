@@ -84,6 +84,10 @@ public class PathFollower : MonoBehaviour
 
     public void UpdateTarget()
     {
+        if (m_pathfinder.Target == null)
+        {
+            return;
+        }
         m_pathfinder.Target = Target.position;
         m_prevTarget = Target.position;
         m_pathfinder.UpdatePath();
