@@ -56,7 +56,7 @@ public class Minotaur : MonoBehaviour
         // Destroy ONLY rope objects
         if (other.CompareTag("Rope"))
         {
-            RopeSpawn.spawner.DestroyRope(other, other.transform.position);
+            RopeSpawner.spawner.DestroyRope(other, other.transform.position);
         }
     }
 }

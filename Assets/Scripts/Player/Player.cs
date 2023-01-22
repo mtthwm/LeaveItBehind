@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     private float speed = 5f;
 
     [SerializeField]
+    private int yarn_length = 100;
+
+    [SerializeField]
     private Tilemap tileMap;
 
     private Vector3Int current_Tile;
@@ -39,6 +42,9 @@ public class Player : MonoBehaviour
         if (dir == 0)
             return;
 
+        if (yarn_length == 0)
+            return;
+
         float move_Speed = speed * Time.fixedDeltaTime;
         switch (dir) 
         {
@@ -56,14 +62,25 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        Vector3Int cell = tileMap.WorldToCell(transform.position);
-        if (current_Tile != cell)
+        // if there is more yarn to place, place it
+        if (yarn_length > 0 )
         {
-            current_Tile = cell;
+            Vector3Int cell = tileMap.WorldToCell(transform.position);
+            if (current_Tile != cell)
+            {
+                current_Tile = cell;
 
-            // attempt rope spawn
-            RopeSpawn.spawner.SpawnRope(cell, move_Dir);
+                // attempt rope spawn
+                RopeSpawner.spawner.SpawnRope(cell, move_Dir);
+
+                yarn_length--;
+            }
         }
+    }
+
+    public void Yarn_Destroyed()
+    {
+        yarn_length++;
     }
 
     public void Move(InputAction.CallbackContext context) 
@@ -88,5 +105,10 @@ public class Player : MonoBehaviour
                 dir = (move_Dir.y > 0) ? 3 : 4;
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }

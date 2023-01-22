@@ -1,16 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class RopeSpawn : MonoBehaviour
+public class RopeSpawner : MonoBehaviour
 {
-    static public RopeSpawn spawner;
+    static public RopeSpawner spawner;
 
     static private HashSet<Vector3Int> map;
 
     [SerializeField]
-    static private GameObject RopePrefab;
+    private GameObject RopePrefab;
 
     [SerializeField]
     static private Tilemap tile_Map;
@@ -40,6 +39,9 @@ public class RopeSpawn : MonoBehaviour
     {
         map.Remove(tile_Map.WorldToCell(coords));
 
+        Player.player.Yarn_Destroyed();
+
         Destroy(rope);
     }
 }
+
