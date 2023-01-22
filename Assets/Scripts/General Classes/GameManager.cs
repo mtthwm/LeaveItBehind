@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     private float Distance_Min_Player()
     {
-        return 100;//Vector2.Distance(Player.player.transform.position, Minotaur.instance.transform.position);
+        return Vector2.Distance(Player.player.transform.position, Minotaur.instance.transform.position);
     }
 
     public void Player_Has_Treasure()

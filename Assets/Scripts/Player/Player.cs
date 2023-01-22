@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         if (yarn_length == 0 )
             return;
 
-        float move_Speed = speed * Time.fixedDeltaTime;
+        float move_Speed = speed;
         Quaternion rotation = new Quaternion();
         switch (dir) 
         {
