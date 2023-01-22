@@ -16,7 +16,8 @@ public class Pathfinder : MonoBehaviour
         Path.Clear();
         foreach (DSA.GridLocation l in m_nodes)
         {
-            Path.Add(gridProvider.GridToWorld(l));
+            Vector3 v = gridProvider.GridToWorld(l);
+            Path.Add(v);
         }
     }
 

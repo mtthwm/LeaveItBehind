@@ -14,7 +14,6 @@ public class PathFollower : MonoBehaviour
     private Rigidbody2D m_rb2d;
     private bool m_following;
     private bool m_hasPath;
-    private int m_dir = 0;
     private int m_pathIndex;
     private List<Vector3> m_path;
     private Vector3 m_prevTarget;
@@ -33,19 +32,20 @@ public class PathFollower : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, m_path[m_pathIndex]) > 0.1f)
             {
-                if (m_dir == 0)
+                Vector3 dir = (m_path[m_pathIndex] - transform.position).normalized;
+                if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y) && dir.y > 0)
                 {
                     MovementController.Move_Up(m_rb2d, speed);
                 }
-                if (m_dir == 1)
+                if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y) && dir.x > 0)
                 {
                     MovementController.Move_Right(m_rb2d, speed);
                 }
-                if (m_dir == 2)
+                if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y) && dir.y < 0)
                 {
                     MovementController.Move_Down(m_rb2d, speed);
                 }
-                if (m_dir == 3)
+                if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y) && dir.x < 0)
                 {
                     MovementController.Move_Left(m_rb2d, speed);
                 }
@@ -59,30 +59,7 @@ public class PathFollower : MonoBehaviour
                     m_rb2d.velocity = Vector2.zero;
                     return;
                 }
-
-                ChangeDirection();
             }
-        }
-    }
-
-    private void ChangeDirection()
-    {
-        Vector3 dir = (m_path[m_pathIndex] - transform.position).normalized;
-        if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y) && dir.y > 0)
-        {
-            m_dir = 0;
-        }
-        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y) && dir.x > 0)
-        {
-            m_dir = 1;
-        }
-        if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y) && dir.y < 0)
-        {
-            m_dir = 2;
-        }
-        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y) && dir.x < 0)
-        {
-            m_dir = 3;
         }
     }
 
@@ -102,17 +79,11 @@ public class PathFollower : MonoBehaviour
         m_path = m_pathfinder.Path;
         if (m_path.Count < 2)
         {
-            foreach (Vector3 v in m_path)
-            {
-                Debug.Log(v);
-            }
             Stop();
             return;
         }
         m_pathIndex = 0;
         m_hasPath = true;
-
-        ChangeDirection();
     }
 
     public void Stop()
