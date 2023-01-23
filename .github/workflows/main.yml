@@ -1,13 +1,28 @@
-name: Build Project
-on:
-  workflow_dispatch: {}
+name: Building
+
+on: [push, pull_request]
+
 jobs:
-  activation:
-    name: Build Project
+  build:
+    name: Build my project ✨
     runs-on: ubuntu-latest
     steps:
-      - name: Build
-        id: build
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # Build
+      - name: Build project
         uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -15,9 +30,9 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: WebGL
-      - name: Save
-        id: save
-        uses: actions/upload-artifact@v2
+
+      # Output
+      - uses: actions/upload-artifact@v2
         with:
           name: Build
           path: build
